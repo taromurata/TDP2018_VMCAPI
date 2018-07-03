@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 #
 # https://github.com/vmware/vsphere-automation-sdk-python
 #
