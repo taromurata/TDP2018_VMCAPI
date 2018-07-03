@@ -50,3 +50,6 @@ class VMCUtil():
             table.append([sddc.id, sddc.name, sddc.resource_config.region])
         print(tabulate(table, ['ID', 'Name', 'AWS Region']))
 
+    def list_vms_in_sddc(self):
+        # TODO: WIP
+        return
