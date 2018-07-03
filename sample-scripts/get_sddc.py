@@ -10,15 +10,28 @@
 
 """
 
+import argparse
+
 from organization_operations import *
+from vmc_util import *
 
 print('test')
 
-def main():
-    org_operations = OperationsOnOrganizations()
-    org_operations.options()
-    org_operations.setup()
-    org_operations.list_orgs()
+def main(info_file):
+    vmc_util = VMCUtil()
+    vmc_util.read_info(info_file)
+    print(vmc_util.refresh_token)
+    print(vmc_util.main_org_id)
+#    org_operations = OperationsOnOrganizations()
+#    org_operations.options()
+#    org_operations.setup()
+#    org_operations.list_orgs()
+    vmc_util.login()
+    vmc_util.list_sddc()
 
 if __name__ == '__main__':
-    main()
+    parser = argparse.ArgumentParser();
+    parser.add_argument('-f', '--file', action='store', type=str)
+    args = parser.parse_args()
+
+    main(args.file)
