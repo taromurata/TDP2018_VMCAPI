@@ -11,6 +11,7 @@
 """
 
 import argparse
+import sys
 
 from organization_operations import *
 from vmc_util import *
@@ -34,4 +35,6 @@ if __name__ == '__main__':
     parser.add_argument('-f', '--file', action='store', type=str)
     args = parser.parse_args()
 
+    if not args.file:
+        sys.exit("usage: ./get_sddc.py -f [config file]")
     main(args.file)
