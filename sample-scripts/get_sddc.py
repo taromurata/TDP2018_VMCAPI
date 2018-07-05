@@ -21,7 +21,7 @@ def main(info_file):
     vmc_util = VMCUtil()
     vmc_util.read_info(info_file)
     print(vmc_util.refresh_token)
-    print(vmc_util.main_org_id)
+    print(vmc_util.org_id)
 #    org_operations = OperationsOnOrganizations()
 #    org_operations.options()
 #    org_operations.setup()

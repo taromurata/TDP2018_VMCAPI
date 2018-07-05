@@ -39,7 +39,7 @@ class VMCUtil():
 
         # XXX: for test only. these values should be input interactively
         self.sddc_id = info['vmc']['sddc_id']
-        self.sddc_id = info['vmc']['sddc_name']
+        self.sddc_name = info['vmc']['sddc_name']
         self.region = info['vmc']['region']
         self.interval_sec = info['vmc']['interval_sec']
 
