@@ -38,9 +38,9 @@ class VMCUtil():
         self.org_id = info['vmc']['main_org_id']
 
         # XXX: for test only. these values should be input interactively
-        self.sddc_id = info['vmc']['sddc_id']
-        self.sddc_name = info['vmc']['sddc_name']
-        self.region = info['vmc']['region']
+        # self.sddc_id = info['vmc']['sddc_id']
+        # self.sddc_name = info['vmc']['sddc_name']
+        # self.region = info['vmc']['region']
         self.interval_sec = info['vmc']['interval_sec']
 
     def login(self):
@@ -56,28 +56,47 @@ class VMCUtil():
         self.print_output(sddcs)
 
     def create_sddc(sddc_create_spec):
-        # XXX:
+        """
+        Create SDDC
+
+        Parameters
+        ----------
+        sddc_create_spec : dict
+
+        """
+
         # account_id = self.vmc_client.orgs.account_link.ConnectedAccounts.get(
         #     self.org_id)[0].id
-        account_id =
 
-        vpc_map = self.vmc_client.orgs.account_link.CompatibleSubnets.get(
-            org=self.org_id,
-            linked_account_id=account_id).vpc_map
+        account_id = sddc_create_spec['account_id']
 
-        customer_subnet_id = self.get_subnet_id(vpc_map)
-        if not customer_subnet_id:
-            raise ValueError('No available subnet for region {}'.format(self.region))
+        # vpc_map = self.vmc_client.orgs.account_link.CompatibleSubnets.get(
+        #     org=self.org_id,
+        #     linked_account_id=account_id).vpc_map
+
+        # customer_subnet_id = self.get_subnet_id(vpc_map)
+        # if not customer_subnet_id:
+        #     raise ValueError('No available subnet for region {}'.format(self.region))
+
+        # sddc_config = AwsSddcConfig(
+        #     region=self.region,
+        #     name=self.sddc_name,
+        #     account_link_sddc_config=[AccountLinkSddcConfig(
+        #         customer_subnet_ids=[customer_subnet_id],
+        #         connected_account_id=account_id)],
+        #     provider=os.environ.get('VMC_PROVIDER', SddcConfig.PROVIDER_AWS),
+        #     num_hosts=1,
+        #     deployment_type=SddcConfig.DEPLOYMENT_TYPE_SINGLEAZ)
 
         sddc_config = AwsSddcConfig(
-            region=self.region,
-            name=self.sddc_name,
-            account_link_sddc_config=[AccountLinkSddcConfig(
-                customer_subnet_ids=[customer_subnet_id],
-                connected_account_id=account_id)],
-            provider=os.environ.get('VMC_PROVIDER', SddcConfig.PROVIDER_AWS),
-            num_hosts=1,
-            deployment_type=SddcConfig.DEPLOYMENT_TYPE_SINGLEAZ)
+                region=sddc_create_spec['region'],
+                name=sddc_create_spec['name'],
+                account_link_sddc_config=[AccountLinkSddcConfig(
+                    customer_subnet_ids=[sddc_create_spec['subnet_id']],
+                    connected_account_id=account_id)],
+                provider=sddc_create_spec['provider']
+                num_hosts=int(sddc_create_spec['num_hosts']),
+                deployment_type=SddcConfig.DEPLOYMENT_TYPE_SINGLEAZ)
 
         try:
             task = self.vmc_client.orgs.Sddcs.create(org=self.org_id,
