@@ -55,10 +55,11 @@ class VMCUtil():
         print("\n# List SDDCs")
         self.print_output(sddcs)
 
-    def create_sddc(self):
+    def create_sddc(sddc_create_spec):
         # XXX:
-        account_id = self.vmc_client.orgs.account_link.ConnectedAccounts.get(
-            self.org_id)[0].id
+        # account_id = self.vmc_client.orgs.account_link.ConnectedAccounts.get(
+        #     self.org_id)[0].id
+        account_id =
 
         vpc_map = self.vmc_client.orgs.account_link.CompatibleSubnets.get(
             org=self.org_id,

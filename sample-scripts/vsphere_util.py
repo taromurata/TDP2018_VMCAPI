@@ -16,7 +16,6 @@ import argparse
 import atexit
 import urllib3
 from tabulate import tabulate
-
 #from vmware.vapi.vmc.client import create_vmc_client
 from vmware.vapi.vsphere.client import create_vsphere_client
 
@@ -51,6 +50,21 @@ class vSphereUtil():
     def list_vms(self):
         print(self.vsphere_client.vcenter.VM.list())
 
+
+    def create_vm(vm_info):
+        # TODO:
+
+        return
+
+    def cleanup_vm(vm_info):
+        # TODO:
+
+        return
+
+    def deploy_ovf_url(ovf_url):
+
+    def poweron_vm(vm_name):
+        return
 
     def print_output(self, sddcs):
         table = []
