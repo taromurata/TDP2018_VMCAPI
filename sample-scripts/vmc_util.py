@@ -94,7 +94,7 @@ class VMCUtil():
                 account_link_sddc_config=[AccountLinkSddcConfig(
                     customer_subnet_ids=[sddc_create_spec['subnet_id']],
                     connected_account_id=account_id)],
-                provider=sddc_create_spec['provider']
+                provider=sddc_create_spec['provider'],
                 num_hosts=int(sddc_create_spec['num_hosts']),
                 deployment_type=SddcConfig.DEPLOYMENT_TYPE_SINGLEAZ)
 
