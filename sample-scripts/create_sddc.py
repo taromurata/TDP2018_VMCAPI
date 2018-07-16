@@ -19,7 +19,7 @@ def main(info_file, sddc_spec):
     vmc_util = VMCUtil()
     vmc_util.read_info(info_file)
     vmc_util.login()
-    vmc_util.create_sddc()
+    vmc_util.create_sddc(sddc_spec)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser();

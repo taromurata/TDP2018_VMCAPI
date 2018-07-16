@@ -116,6 +116,26 @@ class VMCUtil():
         sddc = self.vmc_client.orgs.Sddcs.get(self.org_id, self.sddc_id)
         self.print_output([sddc])
 
+    # TODO: Merge to delete methods into one.
+    def delete_sddc_id(self, sddc_id):
+        try:
+            task = self.vmc_client.orgs.Sddcs.delete(org=self.org_id,
+                                                     sddc=sddc_id)
+        except InvalidRequest as e:
+            # Convert InvalidRequest to ErrorResponse to get error message
+            error_response = e.data.convert_to(ErrorResponse)
+            raise Exception(error_response.error_messages)
+
+        wait_for_task(task_client=self.vmc_client.orgs.Tasks,
+                      org_id=self.org_id,
+                      task_id=task.id,
+                      interval_sec=self.interval_sec)
+
+        print('\n# Example: Remaining SDDCs:'.format(self.org_id))
+        sddcs = self.vmc_client.orgs.Sddcs.list(self.org_id)
+        self.print_output(sddcs)
+
+
     def delete_sddc(self):
         try:
             task = self.vmc_client.orgs.Sddcs.delete(org=self.org_id,
