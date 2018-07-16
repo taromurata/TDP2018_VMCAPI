@@ -53,7 +53,7 @@ class VMCPyShell:
                 continue
 
     def delete_sddc_id(self):
-        print('sddc_id to delete: ', end="")
+        print('sddc_id to delete [sddc resource id]: ', end="")
         sddc_id = input().strip()
         self.vmcutil.delete_sddc_id(sddc_id)
 
