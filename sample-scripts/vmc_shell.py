@@ -34,11 +34,17 @@ class VMCPyShell:
             if cmd in {'l', 'ls', 'list_sddc'}:
                 self.vmcutil.list_sddc()
                 continue
+            elif cmd in {'r', 'res_id', 'resource_ids'}:
+                self.vmcutil.list_sddc_resource_ids()
+                continue
             elif cmd in {'get_org_id', 'id'}:
                 print('org_id: {}'.format(self.vmcutil.org_id))
                 continue
             elif cmd in {'delete_sddc'}:
                 self.delete_sddc_id()
+                continue
+            elif cmd in {'delete', 'delete_latest_sddc'}:
+                self.vmcutil.delete_latest_sddc()
                 continue
             elif cmd in {'create_sddc'}:
                 self.create_sddc_by_file()

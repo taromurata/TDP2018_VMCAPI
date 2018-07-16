@@ -136,7 +136,7 @@ class VMCUtil():
         self.print_output(sddcs)
 
 
-    def delete_sddc(self):
+    def delete_latest_sddc(self):
         try:
             task = self.vmc_client.orgs.Sddcs.delete(org=self.org_id,
                                                      sddc=self.sddc_id)
@@ -153,6 +153,22 @@ class VMCUtil():
         print('\n# Example: Remaining SDDCs:'.format(self.org_id))
         sddcs = self.vmc_client.orgs.Sddcs.list(self.org_id)
         self.print_output(sddcs)
+
+    def list_sddc_resource_ids(self):
+        sddcs = self.vmc_client.orgs.Sddcs.list(self.org_id)
+        #
+        print(type(sddcs[0].resource_config))
+        for x in dir(sddcs[0].resource_config):
+            print(x)
+        #
+        if not sddcs:
+            raise ValueError('This func requires at least one SDDC associated'
+                             'with the calling user')
+        print("\n# List SDDC Resource IDs")
+        table = []
+        for sddc in sddcs:
+            table.append([sddc.resource_id, sddc.name, sddc.resource_config.region])
+        print(tabulate(table, ['Resource ID', 'Name', 'AWS Region']))
 
     def print_output(self, sddcs):
         table = []
