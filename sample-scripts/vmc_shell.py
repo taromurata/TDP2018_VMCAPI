@@ -12,6 +12,7 @@ VMC on AWS python shell.
 
 import os
 import argparse
+import json
 
 from vmc_util import *
 
@@ -51,6 +52,14 @@ class VMCPyShell:
                 continue
             elif cmd in {'create_sddc_i', 'create_sddc_interactive'}:
                 self.create_sddc_interactive()
+            elif cmd in {'vcenter', 'login', 'login_vcenter'}:
+                # TODO:
+                print("Not implemented yet.", file=sys.stderr)
+                continue
+            elif cmd in {'logoff', 'logout', 'logout_vcenter'}:
+                # TODO:
+                print("Not implemented yet.", file=sys.stderr)
+                continue
             elif cmd in {'exit', 'exit()'}:
                 print('Bye!')
                 break;
@@ -67,7 +76,7 @@ class VMCPyShell:
         print('sddc spec file?: ', end="")
         sddc_spec_file = input().strip()
         if os.path.isfile(sddc_spec_file):
-            sddc_spec = json.load(open(args.config_file, "r"))
+            sddc_spec = json.load(open(sddc_spec_file, "r"))
             self.vmcutil.create_sddc(sddc_spec)
         else:
             print("No such file: {}".format(sddc_spec_file))

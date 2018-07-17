@@ -16,7 +16,12 @@ import argparse
 import atexit
 from tabulate import tabulate
 
+from com.vmware.vapi.std.errors_client import InvalidRequest
+from com.vmware.vmc.model_client import AwsSddcConfig, ErrorResponse, AccountLinkSddcConfig, SddcConfig
+from tabulate import tabulate
 from vmware.vapi.vmc.client import create_vmc_client
+
+from samples.vmc.helpers.vmc_task_helper import wait_for_task
 
 class VMCUtil():
     def __init__(self):
@@ -55,7 +60,7 @@ class VMCUtil():
         print("\n# List SDDCs")
         self.print_output(sddcs)
 
-    def create_sddc(sddc_create_spec):
+    def create_sddc(self, sddc_create_spec):
         """
         Create SDDC
 
