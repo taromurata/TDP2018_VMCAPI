@@ -1,4 +1,4 @@
-main:
-  description: Hogehoge
-  title: VMware Cloud on AWS
+vmc:
+  refresh_token: Hogehoge
+  main_org_id: hogehogehoge
 
