@@ -41,7 +41,7 @@ class VMCPyShell:
             elif cmd in {'get_org_id', 'id'}:
                 print('org_id: {}'.format(self.vmcutil.org_id))
                 continue
-            elif cmd in {'delete_sddc'}:
+            elif cmd in {'delete_id', 'delete_sddc', 'delete_sddc_id'}:
                 self.delete_sddc_id()
                 continue
             elif cmd in {'delete', 'delete_latest_sddc'}:
