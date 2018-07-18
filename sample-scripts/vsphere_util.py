@@ -10,6 +10,7 @@
 Draft
 """
 
+import sys
 import yaml
 import requests
 import argparse
@@ -31,14 +32,16 @@ class vSphereUtil():
         self.session.verify = False
         urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
+    def set_info(self, info_dict):
+        self.vcenter_ip = info_dict['vcenter']['ip']
+        self.vcenter_username = info_dict['vcenter']['username']
+        self.vcenter_password = info_dict['vcenter']['password']
+
     def read_info(self, info_file):
         """Read VMC information from info file."""
         info = yaml.load(open(info_file, 'r+'))
-
-        self.vcenter_ip = info['vcenter']['ip']
-        self.vcenter_username = info['vcenter']['username']
-        self.vcenter_password = info['vcenter']['password']
-
+        self.set_info(info)
+        
     def login(self):
         """Login to vCenter."""
         self.vsphere_client = create_vsphere_client(
@@ -64,6 +67,7 @@ class vSphereUtil():
     def deploy_ovf_url(ovf_url):
 
     def poweron_vm(vm_name):
+        print('Not implemented yet.', file=sys.stderr)
         return
 
     def print_output(self, sddcs):
