@@ -22,6 +22,7 @@ from vmware.vapi.vsphere.client import create_vsphere_client
 
 class vSphereUtil():
     def __init__(self):
+        self.set_default_vm_spec()
         self.info_file = None
         self.vcenter_ip = None
         self.vcenter_username = None
@@ -31,6 +32,10 @@ class vSphereUtil():
         self.session = requests.session()
         self.session.verify = False
         urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+    def set_default_vm_spec(self):
+        # TODO:
+        print('Not implemented yet.', file=sys.stderr)
 
     def set_info(self, info_dict):
         self.vcenter_ip = info_dict['vcenter']['ip']
@@ -53,18 +58,24 @@ class vSphereUtil():
     def list_vms(self):
         print(self.vsphere_client.vcenter.VM.list())
 
-
-    def create_vm(vm_info):
-        # TODO:
+    def create_default_vm(self):
 
         return
 
-    def cleanup_vm(vm_info):
+    def create_vm(self, vm_info):
         # TODO:
+        print('Not implemented yet.', file=sys.stderr)
+
+        return
+
+    def cleanup_vm(self, vm_info):
+        # TODO:
+        print('Not implemented yet.', file=sys.stderr)
 
         return
 
     def deploy_ovf_url(ovf_url):
+        print('Not implemented yet.', file=sys.stderr)
         return
 
     def poweron_vm(vm_name):

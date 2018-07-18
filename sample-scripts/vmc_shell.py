@@ -24,6 +24,7 @@ from vsphere_util import *
 class VMCPyShell:
     def __init__(self, info_file):
         print('Welcome to VMC Python Shell!')
+        self.with_vmc = True
         self.vmcutil = VMCUtil()
         self.vmcutil.read_info(info_file)
         self.vmcutil.login()
@@ -34,6 +35,10 @@ class VMCPyShell:
         # Start main loop
         self.main_loop()
 
+    def vmc_login(self):
+        # TODO:
+        print('Not implemented yet.', file=sys.stderr) 
+
     def main_loop(self):
         prompt = 'VMCPyShell> '
         with_vcenter = False
@@ -41,6 +46,7 @@ class VMCPyShell:
         while True:
             cmd = input(prompt).strip()
 
+            # TODO: Rearrangement required.
             if cmd in {'l', 'ls', 'list_sddc'}:
                 self.vmcutil.list_sddc()
             elif cmd in {'r', 'res_id', 'resource_ids'}:
@@ -153,12 +159,19 @@ if __name__ == '__main__':
     parser.add_argument('-h', '--help', action='store_true')
     parser.add_argument('-f', '--file', action='store', type=str)
     parser.add_argument('-d', '--dry_run', action='store_true')
+    parser.add_argument('-n', '--no_vmc', action='store_true')
+    parser.add_argument('-v', '--vcenter_only', action='store_true')
     args = parser.parse_args()
 
     error_message = 'usage: ./vmc_shell.py -f [info_file]'
 
     if args.dry_run:
         print("Sorry but dry_run option is not implemeted yet.", file=sys.stderr)
+
+    if args.vcenter_only:
+        # TODO:
+        print('Not implemented yet.', file=sys.stderr)
+        sys.exit()
 
     if args.file:
         vmcshell = VMCPyShell(args.file)
