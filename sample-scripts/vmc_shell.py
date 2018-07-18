@@ -10,6 +10,7 @@
 VMC on AWS python shell.
 """
 
+import sys
 import os
 import argparse
 import json
@@ -108,11 +109,11 @@ Commands:
       - list sddcs associated with your org_id
     * id, get_org_id:
       - print your organization id
-    * delete_sddc [sddc_id]:
+    * delete_sddc:
       - delete sddc
-    * create_sddc [sddc_spec_file]
+    * create_sddc:
       - create sddc by using configurations in given file.
-    * create_sddc_i, create_sddc_interactive
+    * create_sddc_i, create_sddc_interactive:
       - create sddc interactively
     * exit
       - exit this script.
