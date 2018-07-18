@@ -46,7 +46,8 @@ class VMCUtil():
         # self.sddc_id = info['vmc']['sddc_id']
         # self.sddc_name = info['vmc']['sddc_name']
         # self.region = info['vmc']['region']
-        self.interval_sec = info['vmc']['interval_sec']
+        # self.interval_sec = info['vmc']['interval_sec']
+        self.interval_sec = 2 # default value in sample code
 
     def login(self):
         """Login to VMware Cloud on AWS."""

@@ -10,11 +10,15 @@
 VMC on AWS python shell.
 """
 
+import sys
 import os
 import argparse
 import json
 
+from getpass import getpass
+
 from vmc_util import *
+from vsphere_util import *
 
 
 class VMCPyShell:
@@ -24,52 +28,73 @@ class VMCPyShell:
         self.vmcutil.read_info(info_file)
         self.vmcutil.login()
         print('Logged in to VMC using given info.')
+
+        self.vsphereutil = None
+
+        # Start main loop
         self.main_loop()
 
     def main_loop(self):
+        prompt = 'VMCPyShell> '
+        with_vcenter = False
+        # Main loop.
         while True:
-            print("VMCPyShell > ", end="")
-            cmd = input().strip()
+            cmd = input(prompt).strip()
 
-            # Main loop.
             if cmd in {'l', 'ls', 'list_sddc'}:
                 self.vmcutil.list_sddc()
-                continue
             elif cmd in {'r', 'res_id', 'resource_ids'}:
                 self.vmcutil.list_sddc_resource_ids()
-                continue
             elif cmd in {'get_org_id', 'id'}:
                 print('org_id: {}'.format(self.vmcutil.org_id))
-                continue
-            elif cmd in {'delete_sddc'}:
+            elif cmd in {'delete_id', 'delete_sddc', 'delete_sddc_id'}:
                 self.delete_sddc_id()
-                continue
             elif cmd in {'delete', 'delete_latest_sddc'}:
                 self.vmcutil.delete_latest_sddc()
-                continue
             elif cmd in {'create_sddc'}:
                 self.create_sddc_by_file()
-                continue
             elif cmd in {'create_sddc_i', 'create_sddc_interactive'}:
                 self.create_sddc_interactive()
             elif cmd in {'vcenter', 'login', 'login_vcenter'}:
                 # TODO:
                 print("Not implemented yet.", file=sys.stderr)
-                continue
+                # self.login_vcenter()
+            elif cmd in {'vcenter_i', 'login_i', 'logini', 'login_vcenter_i'}:
+                self.login_vcenter_interactive()
+                prompt = 'VMCPyShell (w/ VC)> '
+                with_vcenter = True
             elif cmd in {'logoff', 'logout', 'logout_vcenter'}:
                 # TODO:
                 print("Not implemented yet.", file=sys.stderr)
-                continue
             elif cmd in {'exit', 'exit()'}:
                 print('Bye!')
+                #
+                # EXIT LOOP
+                #
                 break;
+            elif with_vcenter and cmd in {'vms', 'list_vms', 'list', 'ls_vm', 'lsvm'}:
+                self.vsphereutil.list_vms()
             else:
                 self.print_help()
-                continue
+
+    def login_vcenter_interactive(self):
+        self.vsphereutil = vSphereUtil()
+
+        vcenter_ip = input('vCenter IP: ').strip()
+        vcenter_username = input('Username: ').strip()
+        vcenter_password = getpass('Password: ').strip()
+
+        self.vsphereutil.set_info({
+            'vcenter': {'ip': vcenter_ip,
+                        'username': vcenter_username,
+                        'password': vcenter_password}})
+
+        self.vsphereutil.login()
+
+        print("Successfully logged in to {}".format(vcenter_ip))
 
     def delete_sddc_id(self):
-        print('sddc_id to delete [sddc resource id]: ', end="")
-        sddc_id = input().strip()
+        sddc_id = input('sddc_id to delete [sddc resource id]: ').strip()
         self.vmcutil.delete_sddc_id(sddc_id)
 
     def create_sddc_by_file(self):
@@ -83,12 +108,12 @@ class VMCPyShell:
 
     def create_sddc_interactive(self):
         # TODO: Implement a confirmation process.
-        print('sddc_name    : ', end=""); sddc_name     = input().strip()
-        print('sddc_provider: ', end=""); sddc_provider = input().strip()
-        print('sddc_region  : ', end=""); sddc_region   = input().strip()
-        print('num_hosts    : ', end=""); num_hosts     = input().strip()
-        print('account_id   : ', end=""); account_id    = input().strip()
-        print('subnet_id    : ', end=""); subnet_id     = input().strip()
+        sddc_name     = input('sddc_name    : ').strip()
+        sddc_provider = input('sddc_provider: ').strip()
+        sddc_region   = input('sddc_region  : ').strip()
+        num_hosts     = input('num_hosts    : ').strip()
+        account_id    = input('account_id   : ').strip()
+        subnet_id     = input('subnet_id    : ').strip()
 
         sddc_spec = {
                 'name': sddc_name,
@@ -108,12 +133,16 @@ Commands:
       - list sddcs associated with your org_id
     * id, get_org_id:
       - print your organization id
-    * delete_sddc [sddc_id]:
+    * delete_sddc:
       - delete sddc
-    * create_sddc [sddc_spec_file]
+    * create_sddc:
       - create sddc by using configurations in given file.
-    * create_sddc_i, create_sddc_interactive
+    * create_sddc_i, create_sddc_interactive:
       - create sddc interactively
+    * login_i, login_vcenter_i:
+      - login vcenter interactively
+    * vms, list_vms, lsvm:
+      - list vms in the vcenter
     * exit
       - exit this script.
         """)
@@ -123,9 +152,13 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(add_help=False)
     parser.add_argument('-h', '--help', action='store_true')
     parser.add_argument('-f', '--file', action='store', type=str)
+    parser.add_argument('-d', '--dry_run', action='store_true')
     args = parser.parse_args()
 
     error_message = 'usage: ./vmc_shell.py -f [info_file]'
+
+    if args.dry_run:
+        print("Sorry but dry_run option is not implemeted yet.", file=sys.stderr)
 
     if args.file:
         vmcshell = VMCPyShell(args.file)
