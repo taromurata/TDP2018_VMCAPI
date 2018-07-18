@@ -102,7 +102,7 @@ class VMCPyShell:
     def delete_sddc_id(self):
         sddc_id = input('sddc_id to delete [sddc resource id]: ').strip()
         self.vmcutil.delete_sddc_id(sddc_id)
-
+        
     def create_sddc_by_file(self):
         print('sddc spec file?: ', end="")
         sddc_spec_file = input().strip()
