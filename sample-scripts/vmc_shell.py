@@ -43,50 +43,39 @@ class VMCPyShell:
 
             if cmd in {'l', 'ls', 'list_sddc'}:
                 self.vmcutil.list_sddc()
-                continue
             elif cmd in {'r', 'res_id', 'resource_ids'}:
                 self.vmcutil.list_sddc_resource_ids()
-                continue
             elif cmd in {'get_org_id', 'id'}:
                 print('org_id: {}'.format(self.vmcutil.org_id))
-                continue
             elif cmd in {'delete_id', 'delete_sddc', 'delete_sddc_id'}:
                 self.delete_sddc_id()
-                continue
             elif cmd in {'delete', 'delete_latest_sddc'}:
                 self.vmcutil.delete_latest_sddc()
-                continue
             elif cmd in {'create_sddc'}:
                 self.create_sddc_by_file()
-                continue
             elif cmd in {'create_sddc_i', 'create_sddc_interactive'}:
                 self.create_sddc_interactive()
             elif cmd in {'vcenter', 'login', 'login_vcenter'}:
                 # TODO:
                 print("Not implemented yet.", file=sys.stderr)
                 # self.login_vcenter()
-                continue
             elif cmd in {'vcenter_i', 'login_i', 'logini', 'login_vcenter_i'}:
-                # TODO:
-                print("Not implemented yet.", file=sys.stderr)
                 self.login_vcenter_interactive()
                 prompt = 'VMCPyShell (w/ VC)> '
-                continue
+                with_vcenter = True
             elif cmd in {'logoff', 'logout', 'logout_vcenter'}:
                 # TODO:
                 print("Not implemented yet.", file=sys.stderr)
-                continue
             elif cmd in {'exit', 'exit()'}:
                 print('Bye!')
                 #
                 # EXIT LOOP
                 #
                 break;
-            elif with_vcenter and cmd in {'list_vms', 'list', 'ls_vm', 'lsvm'}:
+            elif with_vcenter and cmd in {'vms', 'list_vms', 'list', 'ls_vm', 'lsvm'}:
                 self.vsphereutil.list_vms()
             else:
                 self.print_help()
-                continue
 
     def login_vcenter_interactive(self):
         self.vsphereutil = vSphereUtil()
@@ -150,6 +139,10 @@ Commands:
       - create sddc by using configurations in given file.
     * create_sddc_i, create_sddc_interactive:
       - create sddc interactively
+    * login_i, login_vcenter_i:
+      - login vcenter interactively
+    * vms, list_vms, lsvm:
+      - list vms in the vcenter
     * exit
       - exit this script.
         """)
@@ -165,7 +158,7 @@ if __name__ == '__main__':
     error_message = 'usage: ./vmc_shell.py -f [info_file]'
 
     if args.dry_run:
-        print("Sorry but dry_run option is not implemeted yet.", file=sys.stderr) 
+        print("Sorry but dry_run option is not implemeted yet.", file=sys.stderr)
 
     if args.file:
         vmcshell = VMCPyShell(args.file)
