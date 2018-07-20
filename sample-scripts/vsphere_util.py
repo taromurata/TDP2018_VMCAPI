@@ -33,8 +33,12 @@ class vSphereUtil():
         self.session.verify = False
         urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-    def set_default_vm_spec(self):
+    def set_default_vm_spec(self, vm_spec):
+        self.d_datacenter_name = vm_spec['vm_datacenter_name']
+        self.d_vm_folder_name = vm_spec['vm_folder_name']
+        self.d_datastore_name = vm_spec['vm_datastore_name']
         # TODO:
+
         print('Not implemented yet.', file=sys.stderr)
 
     def set_info(self, info_dict):
@@ -59,13 +63,11 @@ class vSphereUtil():
         print(self.vsphere_client.vcenter.VM.list())
 
     def create_default_vm(self):
-
         return
 
     def create_vm(self, vm_info):
         # TODO:
         print('Not implemented yet.', file=sys.stderr)
-
         return
 
     def cleanup_vm(self, vm_info):
