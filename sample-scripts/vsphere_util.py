@@ -30,7 +30,7 @@ from samples.vsphere.vcenter.helper import vm_placement_helper
 from samples.vsphere.vcenter.helper.vm_helper import get_vm
 from samples.vsphere.vcenter.setup import testbed
 
-from samples.vsphere.contentlibrary.ovfdeploy.deploy_ovf_url import DeployOvfTemplate
+# from samples.vsphere.contentlibrary.ovfdeploy.deploy_ovf_url import DeployOvfTemplate
 
 class vSphereUtil():
     def __init__(self):
@@ -72,8 +72,21 @@ class vSphereUtil():
                 password=self.vcenter_password,
                 session=self.session)
 
+    def dump_vms(self):
+        vms = self.vsphere_client.vcenter.VM.list()
+        print(vms)
+
     def list_vms(self):
-        print(self.vsphere_client.vcenter.VM.list())
+        vms = self.vsphere_client.vcenter.VM.list()
+        print(type(vms))
+        print(vms)
+
+        table = []
+        for vm in vms:
+            print(vm)
+            table.append([vm.vm, vm.name, vm.power_state, vm.cpu_count,
+                vm.memory_size_mib])
+        print(tabulate(table, ['ID', 'Name', 'State', '#vCPU', 'Memory (Mib)']))
 
     def create_default_vm(self):
         """Create default VM using set parameters by set_default_vm_spec."""
