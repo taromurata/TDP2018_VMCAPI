@@ -23,7 +23,7 @@ def main(info_file, config_file, vm_count):
         tmp_vm_name = vm_name + f"{i}"
         vm_config['vm_name_default'] = tmp_vm_name
         vsphere_util.set_default_vm_spec(vm_config)
-        vsphere_util.create_default_vm()
+        vsphere_util.poweron_default_vm()
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser();
