@@ -30,7 +30,7 @@ def main(info_file, config_file, vm_count, vm_name, ope):
         elif ope == 'poweron':
             vsphere_util.poweron_default_vm()
         elif ope == 'delete':
-            vsphere_util.delete_default_vm()
+            vsphere_util.cleanup_default_vm()
         else:
             print(f"Unknow operation {ope}", file=sys.stderr)
 
