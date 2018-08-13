@@ -4,6 +4,7 @@
 !/.gitignore
 !/.gitkeep
 !/README.md
+!/zip-alexa-program.ps1
 !/sample-scripts
 !/sample-scripts/*
 !/alexa-program

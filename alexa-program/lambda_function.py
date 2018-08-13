@@ -7,8 +7,18 @@ For additional samples, visit the Alexa Skills Kit Getting Started guide at
 http://amzn.to/1LGWsLG
 """
 
-from __future__ import print_function
+# from __future__ import print_function
+################################################################################
+# Testing import                                                               #
+################################################################################
 
+import yaml
+import requests
+import urllib3
+# from com.vmware.vapi.std.errors_client import InvalidRequest
+# from com.vmware.vmc.model_client import AwsSddcConfig, ErrorResponse, AccountLinkSddcConfig, SddcConfig
+# from tabulate import tabulate
+# from vmware.vapi.vmc.client import create_vmc_client
 
 # --------------- Helpers that build all of the responses ----------------------
 
@@ -47,11 +57,10 @@ def get_welcome_response():
     """ If we wanted to initialize the session to have some attributes we could
     add those here
     """
-
     session_attributes = {}
-    card_title = "Welcome"
-    speech_output = "アレクサ スキル キット サンプル にようこそ。" \
-                    "あなたの好きな色を教えてください。"
+    card_title = "Welcome!"
+    speech_output = "TDP 2018 VMC API スキルにようこそ。" \
+                    ""
     # If the user either does not reply to the welcome message or says something
     # that is not understood, they will be prompted again with this text.
     reprompt_text = "Please tell me your favorite color by saying, " \
@@ -182,6 +191,8 @@ def lambda_handler(event, context):
     """ Route the incoming request based on type (LaunchRequest, IntentRequest,
     etc.) The JSON body of the request is provided in the event parameter.
     """
+    print(f"event = {event}")
+
     print("event.session.application.applicationId=" +
           event['session']['application']['applicationId'])
 

@@ -1,0 +1,1 @@
+Compress-Archive -Path .\alexa-program\* -DestinationPath .\alexa-program.zip -Force
