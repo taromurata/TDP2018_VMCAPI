@@ -186,12 +186,28 @@ def on_session_ended(session_ended_request, session):
     # add cleanup logic here
 
 
+def vmcapi_test(self):
+    info_file = "info.yaml"
+    vmc_util = VMCUtil()
+    vmc_util.read_info(info_file)
+
+    print(vmc_util.refresh_token)
+    print(vmc_util.org_id)
+
+    vmc_util.login()
+    vmc_util.list_sddc()
+
+
 # --------------- Main handler ------------------
 
 def lambda_handler(event, context):
     """ Route the incoming request based on type (LaunchRequest, IntentRequest,
     etc.) The JSON body of the request is provided in the event parameter.
     """
+
+    print("Just testing...")
+    vmcapi_test()
+
     print(f"event = {event}")
 
     print("event.session.application.applicationId=" +
