@@ -1,0 +1,23 @@
+Metadata-Version: 2.0
+Name: vapi-runtime
+Version: 2.9.0
+Summary: vAPI Runtime
+Home-page: UNKNOWN
+Author: VMware
+Author-email: UNKNOWN
+License: UNKNOWN
+Keywords: VMware
+Platform: UNKNOWN
+Requires-Dist: lxml (>=3.4.1)
+Requires-Dist: pyOpenSSL (>=0.15.1)
+Requires-Dist: requests (>=2.6.0)
+Requires-Dist: service-identity (>=16.0.0)
+Requires-Dist: setuptools
+Requires-Dist: simplejson (>=3.6.5)
+Requires-Dist: six (>=1.9)
+Requires-Dist: twisted (>=16.0.0)
+Requires-Dist: werkzeug (>=0.10.4)
+
+UNKNOWN
+
+

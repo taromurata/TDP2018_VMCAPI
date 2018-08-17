@@ -1,0 +1,16 @@
+Metadata-Version: 2.1
+Name: vmc-app-python-sdk
+Version: 2.2.0.0.0.15184434
+Summary: VMC App Python SDK
+Home-page: UNKNOWN
+Author: VMware
+Author-email: UNKNOWN
+License: UNKNOWN
+Keywords: VMware
+Platform: UNKNOWN
+Requires-Dist: vapi-runtime (>=2.9.0)
+Requires-Dist: vapi-common-client (>=2.9.0)
+
+UNKNOWN
+
+

@@ -59,20 +59,20 @@ def get_welcome_response():
     add those here
     """
     session_attributes = {}
-    card_title = "Welcome!"
+    card_title = "Welcome to TDP 2018 VMC API Skill!"
     speech_output = "TDP 2018 VMC API スキルにようこそ。" \
                     ""
     # If the user either does not reply to the welcome message or says something
     # that is not understood, they will be prompted again with this text.
-    reprompt_text = "Please tell me your favorite color by saying, " \
-                    "my favorite color is red."
+    reprompt_text = "なにかおっしゃってください。"
+
     should_end_session = False
     return build_response(session_attributes, build_speechlet_response(
         card_title, speech_output, reprompt_text, should_end_session))
 
 
 def handle_session_end_request():
-    card_title = "Session Ended"
+    card_title = "TDP 2018 VMC API 終了"
     speech_output = "Thank you for trying the Alexa Skills Kit sample. " \
                     "Have a nice day! "
     # Setting this to true ends the session and exits the skill.

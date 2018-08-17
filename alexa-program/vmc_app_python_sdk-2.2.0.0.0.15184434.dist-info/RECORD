@@ -1,0 +1,17 @@
+vmc_app_python_sdk-2.2.0.0.0.15184434-py2.7-nspkg.pth,sha256=3h4fIzZM-OMcoadof5oKx4yE9osxNnSUC1c18Or_Ino,298
+com/vmware/__init__.py,sha256=5WW_tcX7g-gWvJaz6C3PtYM5Xu19QTGKaOfM0NR_lX4,265
+com/vmware/nsx_vmc_app_client.py,sha256=YlQeaURxIqLleNhq-MtBmCPzPgXjV2zwU88pMIkYEAc,45201
+com/vmware/nsx_vmc_app/__init__.py,sha256=5WW_tcX7g-gWvJaz6C3PtYM5Xu19QTGKaOfM0NR_lX4,265
+com/vmware/nsx_vmc_app/linked_vpcs_client.py,sha256=Lh_OQWR4ljLJ3AMbFYvqE6YRqrhbH4pLR4_zHBUBdmY,8929
+com/vmware/nsx_vmc_app/model_client.py,sha256=kYFqEopIkq8Yatlbo5_romsq6xB4Xrp0iqp_l_xf3b0,92944
+vmc_app_python_sdk-2.2.0.0.0.15184434.dist-info/METADATA,sha256=Of7312Mzo8nScYNN0tWji_7AQRClJtur0qGCxI_qqAM,304
+vmc_app_python_sdk-2.2.0.0.0.15184434.dist-info/RECORD,,
+vmc_app_python_sdk-2.2.0.0.0.15184434.dist-info/WHEEL,sha256=J3CsTk7Mf2JNUyhImI-mjX-fmI4oDjyiXgWT4qgZiCE,110
+vmc_app_python_sdk-2.2.0.0.0.15184434.dist-info/namespace_packages.txt,sha256=A7eVUp0bsHtbJ7vD4f_Ju79_mDJojU9deED6-LV9_s0,4
+vmc_app_python_sdk-2.2.0.0.0.15184434.dist-info/top_level.txt,sha256=A7eVUp0bsHtbJ7vD4f_Ju79_mDJojU9deED6-LV9_s0,4
+vmc_app_python_sdk-2.2.0.0.0.15184434.dist-info/INSTALLER,sha256=zuuue4knoyJ-UwPPXg8fezS7VCrXJQrAP7zeNuwvFQg,4
+com/vmware/__pycache__/__init__.cpython-36.pyc,,
+com/vmware/__pycache__/nsx_vmc_app_client.cpython-36.pyc,,
+com/vmware/nsx_vmc_app/__pycache__/model_client.cpython-36.pyc,,
+com/vmware/nsx_vmc_app/__pycache__/__init__.cpython-36.pyc,,
+com/vmware/nsx_vmc_app/__pycache__/linked_vpcs_client.cpython-36.pyc,,

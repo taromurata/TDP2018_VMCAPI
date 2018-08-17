@@ -1,0 +1,17 @@
+vapi_vmc_client-2.9.0.dist-info/DESCRIPTION.rst,sha256=OCTuuN6LcWulhHS3d5rfjdsQtW22n7HENFRh6jC6ego,10
+vapi_vmc_client-2.9.0.dist-info/METADATA,sha256=n3za603lvvvpyy6ZeKYZlOz7sCCG7TM_UmWnFX_UyB8,237
+vapi_vmc_client-2.9.0.dist-info/RECORD,,
+vapi_vmc_client-2.9.0.dist-info/WHEEL,sha256=GrqQvamwgBV4nLoJe0vhYRSWzWsx7xjlt74FT0SWYfE,110
+vapi_vmc_client-2.9.0.dist-info/metadata.json,sha256=fPyPxxKiHT_7dWUINNwtP11KD4l7zF-Bq3BItf4cQCc,370
+vapi_vmc_client-2.9.0.dist-info/top_level.txt,sha256=mCppiupni-_bJ2AoJfuaXTjXRPCm5ZWF5IOBAQ1Sdms,7
+vmware/__init__.py,sha256=5WW_tcX7g-gWvJaz6C3PtYM5Xu19QTGKaOfM0NR_lX4,265
+vmware/vapi/__init__.py,sha256=5WW_tcX7g-gWvJaz6C3PtYM5Xu19QTGKaOfM0NR_lX4,265
+vmware/vapi/vmc/__init__.py,sha256=5WW_tcX7g-gWvJaz6C3PtYM5Xu19QTGKaOfM0NR_lX4,265
+vmware/vapi/vmc/client.py,sha256=_ouN6p_HbdW_bqYWVDvWoXOYSPUBYJvTIWhnPZ3qfno,2708
+vmware/vapi/vmc/csp_filter.py,sha256=es3wNXgQM3R-yLoYZ95cGVaWPE9idDYxSq-RMH7WJRU,2943
+vapi_vmc_client-2.9.0.dist-info/INSTALLER,sha256=zuuue4knoyJ-UwPPXg8fezS7VCrXJQrAP7zeNuwvFQg,4
+vmware/__pycache__/__init__.cpython-36.pyc,,
+vmware/vapi/__pycache__/__init__.cpython-36.pyc,,
+vmware/vapi/vmc/__pycache__/__init__.cpython-36.pyc,,
+vmware/vapi/vmc/__pycache__/client.cpython-36.pyc,,
+vmware/vapi/vmc/__pycache__/csp_filter.cpython-36.pyc,,

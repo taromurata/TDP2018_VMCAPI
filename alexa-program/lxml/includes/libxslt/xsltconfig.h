@@ -120,7 +120,7 @@ extern "C" {
 #ifndef WITH_MODULES
 #define WITH_MODULES
 #endif
-#define LIBXSLT_DEFAULT_PLUGINS_PATH() "/Users/travis/build/lxml/lxml-wheels/lxml/build/tmp/libxml2/lib/libxslt-plugins"
+#define LIBXSLT_DEFAULT_PLUGINS_PATH() "/tmp/pip-req-build-fb6im469/build/tmp/libxml2/lib/libxslt-plugins"
 #endif
 
 /**

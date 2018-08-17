@@ -1,4 +1,4 @@
-#!/Users/taro/.pyenv/versions/3.5.2/bin/python3.5
+#!/home/ec2-user/.pyenv/versions/3.6.0/bin/python3.6
 # EASY-INSTALL-ENTRY-SCRIPT: 'Twisted==18.7.0','console_scripts','conch'
 __requires__ = 'Twisted==18.7.0'
 import re
