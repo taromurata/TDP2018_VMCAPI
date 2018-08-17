@@ -1,0 +1,9 @@
+vcenter:
+  ip: 12.34.56.78
+  username: username@vsphere.local
+  password: passw0rd
+
+
+vmc:
+  refresh_token: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+  main_org_id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx

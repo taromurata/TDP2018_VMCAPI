@@ -10,3 +10,4 @@
 !/sample-scripts/*
 !/alexa-program
 !/alexa-program/*
+!/alexa-program/tdp_vmcapi/*

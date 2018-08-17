@@ -1,0 +1,17 @@
+'server': 'XXX'
+'username': 'administrator@vsphere.local'
+'password': 'VMware1!'
+
+'esxi_hosts':
+  'name1': '192.168.1.1'
+  'name2': '192.168.1.2'
+  'name3': '192.168.1.3'
+  'name4': '192.168.1.4'
+
+'vm_name_default': 'vm_default_name'
+
+'vm_datacenter_name': 'XXX'
+'vm_folder_name': 'XXX'
+'vm_datastore_name': 'XXX'
+
+'vm_guestos': 'WINDOWS_9_64'
