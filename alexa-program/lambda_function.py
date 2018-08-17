@@ -15,10 +15,11 @@ http://amzn.to/1LGWsLG
 import yaml
 import requests
 import urllib3
-# from com.vmware.vapi.std.errors_client import InvalidRequest
-# from com.vmware.vmc.model_client import AwsSddcConfig, ErrorResponse, AccountLinkSddcConfig, SddcConfig
-# from tabulate import tabulate
-# from vmware.vapi.vmc.client import create_vmc_client
+from com.vmware.vapi.std.errors_client import InvalidRequest
+from com.vmware.vmc.model_client import AwsSddcConfig, ErrorResponse, AccountLinkSddcConfig, SddcConfig
+from tabulate import tabulate
+from vmware.vapi.vmc.client import create_vmc_client
+from tdp_vmcapi.vmc_util import *
 
 # --------------- Helpers that build all of the responses ----------------------
 
