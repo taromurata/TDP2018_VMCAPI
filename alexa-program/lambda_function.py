@@ -7,10 +7,7 @@ For additional samples, visit the Alexa Skills Kit Getting Started guide at
 http://amzn.to/1LGWsLG
 """
 
-# from __future__ import print_function
-################################################################################
-# Testing import                                                               #
-################################################################################
+import boto3
 
 import yaml
 import requests
@@ -20,6 +17,11 @@ from com.vmware.vmc.model_client import AwsSddcConfig, ErrorResponse, AccountLin
 from tabulate import tabulate
 from vmware.vapi.vmc.client import create_vmc_client
 from tdp_vmcapi.vmc_util import *
+
+
+# --------------- Global Variables ---------------------------------------------
+BUCKET_NAME = 'tdp2018-vmcapi'
+INFOFILE_NAME = 'info.yaml'
 
 # --------------- Helpers that build all of the responses ----------------------
 
@@ -73,8 +75,8 @@ def get_welcome_response():
 
 def handle_session_end_request():
     card_title = "TDP 2018 VMC API 終了"
-    speech_output = "Thank you for trying the Alexa Skills Kit sample. " \
-                    "Have a nice day! "
+    speech_output = "TDP 2018 VMC API をご利用いただきありがとうございました。" \
+                    "良い一日を。"
     # Setting this to true ends the session and exits the skill.
     should_end_session = True
     return build_response({}, build_speechlet_response(
@@ -186,10 +188,9 @@ def on_session_ended(session_ended_request, session):
     # add cleanup logic here
 
 
-def vmcapi_test(self):
-    info_file = "info.yaml"
+def vmcapi_test(info):
     vmc_util = VMCUtil()
-    vmc_util.read_info(info_file)
+    vmc_util.set_info(info)
 
     print(vmc_util.refresh_token)
     print(vmc_util.org_id)
@@ -198,15 +199,24 @@ def vmcapi_test(self):
     vmc_util.list_sddc()
 
 
+def info_file():
+    s3 = boto3.client('s3')
+    bucket_name = BUCKET_NAME
+    file_name = INFOFILE_NAME
+
+    response = s3.get_object(Bucket=bucket_name, Key=file_name)
+    info = yaml.load(response['Body'].read())
+
+    return info
+
 # --------------- Main handler ------------------
 
 def lambda_handler(event, context):
     """ Route the incoming request based on type (LaunchRequest, IntentRequest,
     etc.) The JSON body of the request is provided in the event parameter.
     """
-
     print("Just testing...")
-    vmcapi_test()
+    vmcapi_test(info_file())
 
     print(f"event = {event}")
 
