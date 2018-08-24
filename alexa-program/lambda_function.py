@@ -76,7 +76,7 @@ def get_welcome_response():
 def handle_session_end_request():
     card_title = "TDP 2018 VMC API 終了"
     speech_output = "TDP 2018 VMC API をご利用いただきありがとうございました。" \
-                    "良い一日を。"
+                    "良いいちにちを。"
     # Setting this to true ends the session and exits the skill.
     should_end_session = True
     return build_response({}, build_speechlet_response(
@@ -186,6 +186,7 @@ def on_session_ended(session_ended_request, session):
     print("on_session_ended requestId=" + session_ended_request['requestId'] +
           ", sessionId=" + session['sessionId'])
     # add cleanup logic here
+    # TODO: return Good bye message 
 
 
 def vmcapi_test(info):
@@ -218,7 +219,8 @@ def lambda_handler(event, context):
     print("Just testing...")
     vmcapi_test(info_file())
 
-    print(f"event = {event}")
+    print(f"[INFO] event = {event}")
+    # print(f"[INFO] context = {str(context)}")
 
     print("event.session.application.applicationId=" +
           event['session']['application']['applicationId'])
