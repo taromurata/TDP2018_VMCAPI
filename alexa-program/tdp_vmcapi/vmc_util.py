@@ -63,6 +63,9 @@ class VMCUtil():
                              'with the calling user')
         print("\n# List SDDCs")
         self.print_output(sddcs)
+        print(sddcs)
+        print("returing...")
+        return sddcs
 
     def create_sddc(self, sddc_create_spec):
         """

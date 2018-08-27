@@ -10,6 +10,7 @@ http://amzn.to/1LGWsLG
 import boto3
 
 import yaml
+import re
 import requests
 import urllib3
 from com.vmware.vapi.std.errors_client import InvalidRequest
@@ -23,18 +24,20 @@ from tdp_vmcapi.vmc_util import *
 BUCKET_NAME = 'tdp2018-vmcapi'
 INFOFILE_NAME = 'info.yaml'
 
+vmc_util = None
+
 # --------------- Helpers that build all of the responses ----------------------
 
-def build_speechlet_response(title, output, reprompt_text, should_end_session):
+def build_speechlet_response(title, speech_output, card_output, reprompt_text, should_end_session):
     return {
         'outputSpeech': {
             'type': 'PlainText',
-            'text': output
+            'text': speech_output
         },
         'card': {
             'type': 'Simple',
-            'title': "SessionSpeechlet - " + title,
-            'content': "SessionSpeechlet - " + output
+            'title': 'TDP2018 VMC API - ' + title,
+            'content': card_output
         },
         'reprompt': {
             'outputSpeech': {
@@ -56,31 +59,64 @@ def build_response(session_attributes, speechlet_response):
 
 # --------------- Functions that control the skill's behavior ------------------
 
+def info_file():
+    s3 = boto3.client('s3')
+    bucket_name = BUCKET_NAME
+    file_name = INFOFILE_NAME
+
+    response = s3.get_object(Bucket=bucket_name, Key=file_name)
+    info = yaml.load(response['Body'].read())
+
+    return info
+
+
+def vmc_login(info):
+    global vmc_util
+
+    vmc_util = VMCUtil()
+    vmc_util.set_info(info)
+
+    print(vmc_util.refresh_token)
+    print(vmc_util.org_id)
+
+    vmc_util.login()
+    print("vmc_login: Logged in successfully")
+    # vmc_util.list_sddc()
+
+
 def get_welcome_response():
     """ If we wanted to initialize the session to have some attributes we could
     add those here
     """
     session_attributes = {}
-    card_title = "Welcome to TDP 2018 VMC API Skill!"
-    speech_output = "TDP 2018 VMC API スキルにようこそ。" \
-                    ""
+    card_title = "Welcome!"
+    speech_output = "TDP 2018 VMC API スキルにようこそ。\n" \
+                    "VMC にログインしました。"
     # If the user either does not reply to the welcome message or says something
     # that is not understood, they will be prompted again with this text.
     reprompt_text = "なにかおっしゃってください。"
 
+    secure_refresh_token = re.sub("[0-9|a-z|A-Z]", "*", vmc_util.refresh_token, 26)
+    secure_org_id = re.sub("[0-9|a-z|A-Z]", "*", vmc_util.org_id, 26)
+    card_output = "Successfully logged in to VMC:\n" \
+                  f"  refresh_token: {secure_refresh_token}\n" \
+                  f"  org_id: {secure_org_id}"
+
     should_end_session = False
     return build_response(session_attributes, build_speechlet_response(
-        card_title, speech_output, reprompt_text, should_end_session))
+        card_title, speech_output, card_output, reprompt_text, should_end_session))
 
 
 def handle_session_end_request():
-    card_title = "TDP 2018 VMC API 終了"
-    speech_output = "TDP 2018 VMC API をご利用いただきありがとうございました。" \
+    card_title = "Bye!"
+    speech_output = "TDP 2018 VMC API をご利用いただきありがとうございました。\n" \
                     "良いいちにちを。"
+    card_output = "TDP 2018 VMC API をご利用いただきありがとうございました。\n" \
+                  "良い一日を！"
     # Setting this to true ends the session and exits the skill.
     should_end_session = True
     return build_response({}, build_speechlet_response(
-        card_title, speech_output, None, should_end_session))
+        card_title, speech_output, card_output, None, should_end_session))
 
 
 def create_favorite_color_attributes(favorite_color):
@@ -133,7 +169,7 @@ def get_color_from_session(intent, session):
     # the user. If the user does not respond or says something that is not
     # understood, the session will end.
     return build_response(session_attributes, build_speechlet_response(
-        intent['name'], speech_output, reprompt_text, should_end_session))
+        intent['name'], speech_output, speech_output, reprompt_text, should_end_session))
 
 
 # --------------- Events ------------------
@@ -149,12 +185,37 @@ def on_launch(launch_request, session):
     """ Called when the user launches the skill without specifying what they
     want
     """
+    vmc_login(info_file())
 
     print("on_launch requestId=" + launch_request['requestId'] +
           ", sessionId=" + session['sessionId'])
     # Dispatch to your skill's launch
     return get_welcome_response()
 
+
+def list_sddcs_intent():
+    global vmc_util
+    
+    sddcs = vmc_util.list_sddc()
+    print(sddcs)
+
+    sddc_names = [sddc.name for sddc in sddcs]
+    sddc_names_str = '、'.join(sddc_names)
+
+    table = []
+    for sddc in sddcs:
+        table.append([sddc.id, sddc.name, sddc.resource_config.region])
+    card_output = tabulate(table, ['ID', 'Name', 'AWS Region'])
+
+    card_title = "List SDDC"
+    speech_output = "VMC上のSDDCは、" + sddc_names_str + "です。"
+
+    reprompt_text = ""
+
+    should_end_session = False
+
+    return build_response({}, build_speechlet_response(card_title,
+        speech_output, card_output, reprompt_text, should_end_session))
 
 def on_intent(intent_request, session):
     """ Called when the user specifies an intent for this skill """
@@ -174,6 +235,16 @@ def on_intent(intent_request, session):
         return get_welcome_response()
     elif intent_name == "AMAZON.CancelIntent" or intent_name == "AMAZON.StopIntent":
         return handle_session_end_request()
+    elif intent_name == "ListSddcsIntent":
+        return list_sddcs_intent()
+    elif intent_name == "AddSddcIntent":
+        # TODO: Code.
+        return
+    elif intent_name == "DeleteSddcIntent":
+        # TODO: Code.
+        return
+    elif intent_name == "EndSessionIntent":
+        return handle_session_end_request()
     else:
         raise ValueError("Invalid intent")
 
@@ -189,26 +260,6 @@ def on_session_ended(session_ended_request, session):
     # TODO: return Good bye message 
 
 
-def vmcapi_test(info):
-    vmc_util = VMCUtil()
-    vmc_util.set_info(info)
-
-    print(vmc_util.refresh_token)
-    print(vmc_util.org_id)
-
-    vmc_util.login()
-    vmc_util.list_sddc()
-
-
-def info_file():
-    s3 = boto3.client('s3')
-    bucket_name = BUCKET_NAME
-    file_name = INFOFILE_NAME
-
-    response = s3.get_object(Bucket=bucket_name, Key=file_name)
-    info = yaml.load(response['Body'].read())
-
-    return info
 
 # --------------- Main handler ------------------
 
@@ -216,8 +267,6 @@ def lambda_handler(event, context):
     """ Route the incoming request based on type (LaunchRequest, IntentRequest,
     etc.) The JSON body of the request is provided in the event parameter.
     """
-    print("Just testing...")
-    vmcapi_test(info_file())
 
     print(f"[INFO] event = {event}")
     # print(f"[INFO] context = {str(context)}")

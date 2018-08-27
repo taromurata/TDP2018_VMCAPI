@@ -64,6 +64,8 @@ class VMCUtil():
         print("\n# List SDDCs")
         self.print_output(sddcs)
 
+        return sddcs
+
     def create_sddc(self, sddc_create_spec):
         """
         Create SDDC
