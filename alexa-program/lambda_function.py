@@ -192,6 +192,13 @@ def on_launch(launch_request, session):
     # Dispatch to your skill's launch
     return get_welcome_response()
 
+def delete_sddc_intent():
+    # TODO: Code.
+    return get_welcome_response()
+
+def add_sddc_intent():
+    # TODO: Code.
+    return get_welcome_response()
 
 def list_sddcs_intent():
     global vmc_util
@@ -238,11 +245,9 @@ def on_intent(intent_request, session):
     elif intent_name == "ListSddcsIntent":
         return list_sddcs_intent()
     elif intent_name == "AddSddcIntent":
-        # TODO: Code.
-        return
+        return add_sddc_intent()
     elif intent_name == "DeleteSddcIntent":
-        # TODO: Code.
-        return
+        return delete_sddc_intent()
     elif intent_name == "EndSessionIntent":
         return handle_session_end_request()
     else:
