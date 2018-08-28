@@ -36,6 +36,8 @@ class VMCUtil():
         self.sddc_name = None
         self.interval_sec = None
 
+        self.sddc = None
+
     def set_info(self, info):
         self.refresh_token = info['vmc']['refresh_token']
         self.org_id = info['vmc']['main_org_id']
@@ -77,35 +79,12 @@ class VMCUtil():
 
         """
 
-        # account_id = self.vmc_client.orgs.account_link.ConnectedAccounts.get(
-        #     self.org_id)[0].id
-
-        account_id = sddc_create_spec['account_id']
-
-        # vpc_map = self.vmc_client.orgs.account_link.CompatibleSubnets.get(
-        #     org=self.org_id,
-        #     linked_account_id=account_id).vpc_map
-
-        # customer_subnet_id = self.get_subnet_id(vpc_map)
-        # if not customer_subnet_id:
-        #     raise ValueError('No available subnet for region {}'.format(self.region))
-
-        # sddc_config = AwsSddcConfig(
-        #     region=self.region,
-        #     name=self.sddc_name,
-        #     account_link_sddc_config=[AccountLinkSddcConfig(
-        #         customer_subnet_ids=[customer_subnet_id],
-        #         connected_account_id=account_id)],
-        #     provider=os.environ.get('VMC_PROVIDER', SddcConfig.PROVIDER_AWS),
-        #     num_hosts=1,
-        #     deployment_type=SddcConfig.DEPLOYMENT_TYPE_SINGLEAZ)
-
         sddc_config = AwsSddcConfig(
                 region=sddc_create_spec['region'],
                 name=sddc_create_spec['name'],
                 account_link_sddc_config=[AccountLinkSddcConfig(
                     customer_subnet_ids=[sddc_create_spec['subnet_id']],
-                    connected_account_id=account_id)],
+                    connected_account_id=sddc_create_spec['account_id'])],
                 provider=sddc_create_spec['provider'],
                 num_hosts=int(sddc_create_spec['num_hosts']),
                 deployment_type=SddcConfig.DEPLOYMENT_TYPE_SINGLEAZ)
@@ -127,6 +106,10 @@ class VMCUtil():
         self.sddc_id = task.resource_id
         sddc = self.vmc_client.orgs.Sddcs.get(self.org_id, self.sddc_id)
         self.print_output([sddc])
+
+        self.sddc = sddc
+
+        return sddc
 
     # TODO: Merge to delete methods into one.
     def delete_sddc_id(self, sddc_id):
