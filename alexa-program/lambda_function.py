@@ -9,6 +9,7 @@ http://amzn.to/1LGWsLG
 
 import boto3
 
+import json
 import yaml
 import re
 import requests
@@ -18,6 +19,7 @@ from com.vmware.vmc.model_client import AwsSddcConfig, ErrorResponse, AccountLin
 from tabulate import tabulate
 from vmware.vapi.vmc.client import create_vmc_client
 from tdp_vmcapi.vmc_util import *
+from tdp_state import TdpState
 
 
 # --------------- Global Variables ---------------------------------------------
@@ -26,8 +28,11 @@ INFOFILE_NAME = 'info.yaml'
 
 TEST_SDDC_CONFIG_FILE = 'sddc_config.json'
 
+# TODO: Move these globals to attributes
 g_vmc_util = None
 g_sddc_config = None
+
+g_session_state = None
 # --------------- Helpers that build all of the responses ----------------------
 
 def build_speechlet_response(title, speech_output, card_output, reprompt_text, should_end_session):
@@ -110,7 +115,6 @@ def get_welcome_response():
     return build_response(session_attributes, build_speechlet_response(
         card_title, speech_output, card_output, reprompt_text, should_end_session))
 
-
 def handle_session_end_request():
     card_title = "Bye!"
     speech_output = "TDP 2018 VMC API をご利用いただきありがとうございました。\n" \
@@ -148,7 +152,7 @@ def on_launch(launch_request, session):
 def sddc_config():
     s3 = boto3.client('s3')
     response = s3.get_object(Bucket=BUCKET_NAME, Key=TEST_SDDC_CONFIG_FILE)
-    return json.load(response['Body'].read())
+    return json.loads(response['Body'].read().decode('utf-8'))
 
 def delete_latest_sddc_intent():
     global g_vmc_util
@@ -261,10 +265,12 @@ def on_session_ended(session_ended_request, session):
     # add cleanup logic here
     # TODO: return Good bye message 
 
-
+# --------------- Test handler ------------------
+def _lambda_handler(event, context):
+    sddc_conf = sddc_config()
+    return handle_session_end_request()
 
 # --------------- Main handler ------------------
-
 def lambda_handler(event, context):
     """ Route the incoming request based on type (LaunchRequest, IntentRequest,
     etc.) The JSON body of the request is provided in the event parameter.
