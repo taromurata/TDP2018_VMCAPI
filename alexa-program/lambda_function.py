@@ -20,6 +20,7 @@ from tabulate import tabulate
 from vmware.vapi.vmc.client import create_vmc_client
 from tdp_vmcapi.vmc_util import *
 from tdp_state import TdpState
+from state_manager import StateManager
 
 
 # --------------- Global Variables ---------------------------------------------
@@ -28,11 +29,9 @@ INFOFILE_NAME = 'info.yaml'
 
 TEST_SDDC_CONFIG_FILE = 'sddc_config.json'
 
-# TODO: Move these globals to attributes
-g_vmc_util = None
-g_sddc_config = None
+# State Manager per sessionId
+g_id_state_manager = {}
 
-g_session_state = None
 # --------------- Helpers that build all of the responses ----------------------
 
 def build_speechlet_response(title, speech_output, card_output, reprompt_text, should_end_session):
@@ -77,27 +76,24 @@ def info_file():
     return info
 
 
-def vmc_login(info):
-    global g_vmc_util
+def vmc_login(sessionId, info):
+    global g_id_state_manager
 
-    g_vmc_util = VMCUtil()
-    g_vmc_util.set_info(info)
+    g_id_state_manager[sessionId] = StateManager()
 
-    print(g_vmc_util.refresh_token)
-    print(g_vmc_util.org_id)
+    g_id_state_manager[sessionId].vmc_util = VMCUtil()
+    g_id_state_manager[sessionId].vmc_util.set_info(info)
+    g_id_state_manager[sessionId].vmc_util.login()
 
-    g_vmc_util.login()
     print("vmc_login: Logged in successfully")
-    # vmc_util.list_sddc()
 
-
-def get_welcome_response():
+def get_welcome_response(sessionId):
     """ If we wanted to initialize the session to have some attributes we could
     add those here
     """
-    global g_vmc_util
+    global g_id_state_manager
 
-    session_attributes = {}
+    session_attributes = {TdpState.KEY: TdpState.STATE_NORMAL}
     card_title = "Welcome!"
     speech_output = "TDP 2018 VMC API スキルにようこそ。\n" \
                     "VMC にログインしました。"
@@ -105,8 +101,10 @@ def get_welcome_response():
     # that is not understood, they will be prompted again with this text.
     reprompt_text = "なにかおっしゃってください。"
 
-    secure_refresh_token = re.sub("[0-9|a-z|A-Z]", "*", g_vmc_util.refresh_token, 26)
-    secure_org_id = re.sub("[0-9|a-z|A-Z]", "*", g_vmc_util.org_id, 26)
+    secure_refresh_token = re.sub("[0-9|a-z|A-Z]", "*",
+        g_id_state_manager[sessionId].vmc_util.refresh_token, 26)
+    secure_org_id = re.sub("[0-9|a-z|A-Z]", "*",
+        g_id_state_manager[sessionId].vmc_util.org_id, 26)
     card_output = "Successfully logged in to VMC:\n" \
                   f"  refresh_token: {secure_refresh_token}\n" \
                   f"  org_id: {secure_org_id}"
@@ -142,59 +140,64 @@ def on_launch(launch_request, session):
     """ Called when the user launches the skill without specifying what they
     want
     """
-    vmc_login(info_file())
+    sid = session['sessionId']
+    vmc_login(sid, info_file())
 
     print("on_launch requestId=" + launch_request['requestId'] +
           ", sessionId=" + session['sessionId'])
     # Dispatch to your skill's launch
-    return get_welcome_response()
+    return get_welcome_response(sid)
 
 def sddc_config():
     s3 = boto3.client('s3')
     response = s3.get_object(Bucket=BUCKET_NAME, Key=TEST_SDDC_CONFIG_FILE)
     return json.loads(response['Body'].read().decode('utf-8'))
 
-def delete_latest_sddc_intent():
-    global g_vmc_util
+def delete_latest_sddc_intent(sid):
+    global g_id_state_manager
 
-    sddc = g_vmc_util.sddc
+    sddc = g_id_state_manager[sid].vmc_util.sddc
 
-    g_vmc_util.delete_latest_sddc()
+    g_id_state_manager[sid].vmc_util.delete_latest_sddc()
 
     card_title = "SDDC Deleted:"
     speech_output = f"SDDC{sddc.name}の削除が正常に終了しました。"
     reprompt_text = ""
     card_output = tabulate([sddc.id, sddc.name, sddc.resource_config.region], ['ID', 'Name', 'AWS Region'])
     should_end_session = False
+    session_attributes = {TdpState.KEY: TdpState.STATE_NORMAL}
 
-    return build_response({}, build_speechlet_response(card_title, speech_output, card_output, reprompt_text, should_end_session))
+    return build_response(session_attributes, build_speechlet_response(card_title, speech_output, card_output, reprompt_text, should_end_session))
 
 def delete_sddc_intent():
-    global g_vmc_util
+    global g_id_state_manager
+    sid = "dummy"
 
-    return get_welcome_response()
+    return get_welcome_response(sid)
 
-def add_sddc_intent():
-    global g_vmc_util
-    global g_sddc_config
+def add_sddc_intent(sid):
+    global g_id_state_manager
 
-    if g_sddc_config is None:
-        g_sddc_config = sddc_config()
+    if g_id_state_manager[sid].sddc_config is None:
+        g_id_state_manager[sid].sddc_config = sddc_config()
 
-    sddc = g_vmc_util.create_sddc(g_sddc_spec)
+    sddc = g_id_state_manager[sid].vmc_util.create_sddc(
+        g_id_state_manager[sid].sddc_config)
 
     card_title = "Create SDDC"
     speech_output = "SDDCの作成が正常に終了しました。"
     reprompt_text = ""
     card_output = tabulate([sddc.id, sddc.name, sddc.resource_config.region], ['ID', 'Name', 'AWS Region'])
     should_end_session = False
+    # TODO: Use name from user input by using STATE_ADD_NAME
+    session_attributes = {TdpState.KEY: TdpState.STATE_NORMAL}
 
-    return build_response({}, build_speechlet_response(card_title, speech_output, card_output, reprompt_text, should_end_session))
+    return build_response(session_attributes, build_speechlet_response(card_title, speech_output, card_output, reprompt_text, should_end_session))
 
-def list_sddcs_intent():
-    global g_vmc_util
+def list_sddcs_intent(sid):
+    global g_id_state_manager
     
-    sddcs = g_vmc_util.list_sddc()
+    sddcs = g_id_state_manager[sid].vmc_util.list_sddc()
     print(sddcs)
 
     sddc_names = [sddc.name for sddc in sddcs]
@@ -209,10 +212,10 @@ def list_sddcs_intent():
     speech_output = "VMC上のSDDCは、" + sddc_names_str + "です。"
 
     reprompt_text = ""
-
     should_end_session = False
+    session_attributes = {TdpState.KEY: TdpState.STATE_NORMAL}
 
-    return build_response({}, build_speechlet_response(card_title,
+    return build_response(session_attributes, build_speechlet_response(card_title,
         speech_output, card_output, reprompt_text, should_end_session))
 
 
@@ -227,6 +230,7 @@ def not_implemented_message():
 
 def on_intent(intent_request, session):
     """ Called when the user specifies an intent for this skill """
+    sid = session['sessionId']
 
     print("on_intent requestId=" + intent_request['requestId'] +
           ", sessionId=" + session['sessionId'])
@@ -234,20 +238,24 @@ def on_intent(intent_request, session):
     intent = intent_request['intent']
     intent_name = intent_request['intent']['name']
 
+    attributes = session['attributes']
+
+    print(f'attributes = {attributes}')
+
     # Dispatch to your skill's intent handlers
     if intent_name == "AMAZON.HelpIntent":
-        return get_welcome_response()
+        return get_welcome_response(sid)
     elif intent_name == "AMAZON.CancelIntent" or intent_name == "AMAZON.StopIntent":
         return handle_session_end_request()
     elif intent_name == "ListSddcsIntent":
-        return list_sddcs_intent()
+        return list_sddcs_intent(sid)
     elif intent_name == "AddSddcIntent":
-        return add_sddc_intent()
+        return add_sddc_intent(sid)
     elif intent_name == "AddSddcWithNameIntent":
         return not_implemented_message()
     elif intent_name == "DeleteSddcIntent":
         # return delete_sddc_intent()
-        return delete_latest_sddc_intent()
+        return delete_latest_sddc_intent(sid)
         # return not_implemented_message()
     elif intent_name == "EndSessionIntent":
         return handle_session_end_request()
