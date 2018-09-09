@@ -97,19 +97,19 @@ class VMCUtil():
             error_response = e.data.convert_to(ErrorResponse)
             raise Exception(error_response.error_messages)
 
-        wait_for_task(task_client=self.vmc_client.orgs.Tasks,
-                      org_id=self.org_id,
-                      task_id=task.id,
-                      interval_sec=self.interval_sec)
+        # wait_for_task(task_client=self.vmc_client.orgs.Tasks,
+        #               org_id=self.org_id,
+        #               task_id=task.id,
+        #               interval_sec=self.interval_sec)
 
-        print('\n# Example: SDDC created:')
+        # print('\n# Example: SDDC created:')
         self.sddc_id = task.resource_id
-        sddc = self.vmc_client.orgs.Sddcs.get(self.org_id, self.sddc_id)
-        self.print_output([sddc])
+        # sddc = self.vmc_client.orgs.Sddcs.get(self.org_id, self.sddc_id)
+        # self.print_output([sddc])
 
-        self.sddc = sddc
+        # self.sddc = sddc
 
-        return sddc
+        return self.sddc_id
 
     # TODO: Merge to delete methods into one.
     def delete_sddc_id(self, sddc_id):
@@ -121,14 +121,14 @@ class VMCUtil():
             error_response = e.data.convert_to(ErrorResponse)
             raise Exception(error_response.error_messages)
 
-        wait_for_task(task_client=self.vmc_client.orgs.Tasks,
-                      org_id=self.org_id,
-                      task_id=task.id,
-                      interval_sec=self.interval_sec)
+        # wait_for_task(task_client=self.vmc_client.orgs.Tasks,
+        #               org_id=self.org_id,
+        #               task_id=task.id,
+        #               interval_sec=self.interval_sec)
 
-        print('\n# Example: Remaining SDDCs:'.format(self.org_id))
-        sddcs = self.vmc_client.orgs.Sddcs.list(self.org_id)
-        self.print_output(sddcs)
+        # print('\n# Example: Remaining SDDCs:'.format(self.org_id))
+        # sddcs = self.vmc_client.orgs.Sddcs.list(self.org_id)
+        # self.print_output(sddcs)
 
 
     def delete_latest_sddc(self):
@@ -140,14 +140,14 @@ class VMCUtil():
             error_response = e.data.convert_to(ErrorResponse)
             raise Exception(error_response.error_messages)
 
-        wait_for_task(task_client=self.vmc_client.orgs.Tasks,
-                      org_id=self.org_id,
-                      task_id=task.id,
-                      interval_sec=self.interval_sec)
+        # wait_for_task(task_client=self.vmc_client.orgs.Tasks,
+        #               org_id=self.org_id,
+        #               task_id=task.id,
+        #               interval_sec=self.interval_sec)
 
-        print('\n# Example: Remaining SDDCs:'.format(self.org_id))
-        sddcs = self.vmc_client.orgs.Sddcs.list(self.org_id)
-        self.print_output(sddcs)
+        # print('\n# Example: Remaining SDDCs:'.format(self.org_id))
+        # sddcs = self.vmc_client.orgs.Sddcs.list(self.org_id)
+        # self.print_output(sddcs)
 
     def list_sddc_resource_ids(self):
         sddcs = self.vmc_client.orgs.Sddcs.list(self.org_id)

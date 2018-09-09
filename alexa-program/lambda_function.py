@@ -156,14 +156,27 @@ def sddc_config():
 def delete_latest_sddc_intent(sid):
     global g_id_state_manager
 
-    sddc = g_id_state_manager[sid].vmc_util.sddc
+    sddc_name = g_id_state_manager[sid].sddc_config["name"]
 
-    g_id_state_manager[sid].vmc_util.delete_latest_sddc()
+    sddcs = g_id_state_manager[sid].vmc_util.list_sddc()
+    sddc_ready = True
+    for sddc in sddcs:
+        if sddc.name == sddc_name:
+            if sddc.sddc_state != 'READY':
+                sddc_ready = False
+                break
 
-    card_title = "SDDC Deleted:"
-    speech_output = f"SDDC{sddc.name}の削除が正常に終了しました。"
+    speech_output = ""
+
+    if sddc_ready:
+        g_id_state_manager[sid].vmc_util.delete_latest_sddc()
+        speech_output = f"SDDC {sddc_name} の削除が正常に終了しました。"
+    else:
+        speech_output = f"SDDC {sddc_name} は READY ではありません。削除できませんでした。"
+        
+    card_title = "SDDC Delete:"
+    card_output = speech_output
     reprompt_text = ""
-    card_output = tabulate([sddc.id, sddc.name, sddc.resource_config.region], ['ID', 'Name', 'AWS Region'])
     should_end_session = False
     session_attributes = {TdpState.KEY: TdpState.STATE_NORMAL}
 
@@ -181,13 +194,13 @@ def add_sddc_intent(sid):
     if g_id_state_manager[sid].sddc_config is None:
         g_id_state_manager[sid].sddc_config = sddc_config()
 
-    sddc = g_id_state_manager[sid].vmc_util.create_sddc(
+    sddc_id = g_id_state_manager[sid].vmc_util.create_sddc(
         g_id_state_manager[sid].sddc_config)
 
     card_title = "Create SDDC"
     speech_output = "SDDCの作成が正常に終了しました。"
     reprompt_text = ""
-    card_output = tabulate([sddc.id, sddc.name, sddc.resource_config.region], ['ID', 'Name', 'AWS Region'])
+    card_output = f"Creating SDDC: sddc_id is {sddc_id}"
     should_end_session = False
     # TODO: Use name from user input by using STATE_ADD_NAME
     session_attributes = {TdpState.KEY: TdpState.STATE_NORMAL}
@@ -218,6 +231,26 @@ def list_sddcs_intent(sid):
     return build_response(session_attributes, build_speechlet_response(card_title,
         speech_output, card_output, reprompt_text, should_end_session))
 
+def sddc_stats_intent(sid):
+    global g_id_state_manager
+
+    sddcs = g_id_state_manager[sid].vmc_util.list_sddc()
+
+    speech_output = ""
+    table = []
+    for sddc in sddcs:
+        speech_output += f"{sddc.name} は {sddc.sddc_state}、"
+        table.append([sddc.id, sddc.name, sddc.sddc_state])
+
+    speech_output += "です。"
+    card_output = tabulate(table, ['ID', 'Name', 'State'])
+    card_title = 'SDDC Stats'
+    reprompt_text = ""
+    should_end_session = False
+    session_attributes = {TdpState.KEY: TdpState.STATE_NORMAL}
+
+    return build_response(session_attributes, build_speechlet_response(card_title,
+        speech_output, card_output, reprompt_text, should_end_session))
 
 def not_implemented_message():
     card_title = "わかりません、、、"
@@ -257,6 +290,8 @@ def on_intent(intent_request, session):
         # return delete_sddc_intent()
         return delete_latest_sddc_intent(sid)
         # return not_implemented_message()
+    elif intent_name == "SddcStatsIntent":
+        return sddc_stats_intent(sid)
     elif intent_name == "EndSessionIntent":
         return handle_session_end_request()
     else:
