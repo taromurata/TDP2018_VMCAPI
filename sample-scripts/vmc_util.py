@@ -10,6 +10,7 @@
 Draft
 """
 
+
 import yaml
 import requests
 import argparse
@@ -35,10 +36,7 @@ class VMCUtil():
         self.sddc_name = None
         self.interval_sec = None
 
-    def read_info(self, info_file):
-        """Read VMC information from info file."""
-        info = yaml.load(open(info_file, 'r+'))
-
+    def set_info(self, info):
         self.refresh_token = info['vmc']['refresh_token']
         self.org_id = info['vmc']['main_org_id']
 
@@ -48,6 +46,11 @@ class VMCUtil():
         # self.region = info['vmc']['region']
         # self.interval_sec = info['vmc']['interval_sec']
         self.interval_sec = 2 # default value in sample code
+
+    def read_info(self, info_file):
+        """Read VMC information from info file."""
+        info = yaml.load(open(info_file, 'r'))
+        self.set_info(info)
 
     def login(self):
         """Login to VMware Cloud on AWS."""
@@ -60,6 +63,8 @@ class VMCUtil():
                              'with the calling user')
         print("\n# List SDDCs")
         self.print_output(sddcs)
+
+        return sddcs
 
     def create_sddc(self, sddc_create_spec):
         """

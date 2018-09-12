@@ -1,0 +1,376 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"Default",
+				"DefaultSyslogProtocol"
+			],
+			[
+				"Sys",
+				"syslogServerIP"
+			],
+			[
+				"next",
+				"nextDateFormat"
+			],
+			[
+				"line",
+				"line"
+			],
+			[
+				"ne",
+				"nextDayOfWeekJP"
+			],
+			[
+				"toda",
+				"todayOfWeekJP"
+			],
+			[
+				"prev",
+				"prev_date"
+			],
+			[
+				"holi",
+				"holiday_list"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "/C/Users/tmurata/Documents/powershell-scripts/.gitignore",
+			"settings":
+			{
+				"buffer_size": 0,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 213.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"package install",
+				"Package Control: Install Package"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"sort",
+				"Sort Lines"
+			],
+			[
+				"Package Control: instal",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 593.0
+	},
+	"console":
+	{
+		"height": 162.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = 'df21e130d211cfc94d9b0905775a7c0f' + '1e3d39e33b79698005270310898eea76'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/C/Users/tmurata/Documents/powershell-scripts"
+	],
+	"file_history":
+	[
+		"/C/Users/tmurata/OneDrive - VMware, Inc/Downloads/Dashboard-2018-07-30 02-48-33 PM/dashboard/dashboard.json",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/Scripts/NSX_Util.ps1",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/Scripts/NSX_Syslog_Del.ps1",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/Documents/800-Notes/05_use-secure-credential.ps1",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/Documents/800-Notes/04_readhost.ps1",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/Documents/800-Notes/02_new-vicredentialstoreitem.ps1",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/Documents/400-Training/Hybrid Cloud Livefire/SDDC-Hybrid-Student-Share/Day 1/NSXLAB-CLEANER.ps1",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/Documents/800-Notes/01_script.ps1",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/Documents/400-Training/Hybrid Cloud Livefire/SDDC-Hybrid-Student-Share/Day 1/NSXLAB-ESG-LDR-LS-OSPF.ps1",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/Downloads/OneCloud-Media-Uploader.ps1",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/Documents/800-Notes/README_HybridCloudLivefire.md",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/Documents/800-Notes/03_get-credentialstore.ps1",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/Documents/800-Notes/01_vcenter-info.ps1",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/Documents/800-Notes/sample.ps1",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/Documents/800-Notes/Solarized_Darcula.reg",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/Documents/800-Notes/WS1 Champions Meeting.md",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/Documents/800-Notes/Temp",
+		"/C/Users/tmurata/Desktop/JMA_memo",
+		"/C/WINDOWS/system32/drivers/etc/hosts",
+		"/C/Users/tmurata/Documents/WindowsPowerShell/Microsoft.PowerShell_profile.ps1",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/Documents/Training/Mastering Technical Sales - Tokyo/README.md",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/Documents/Training/Mastering Technical Sales - Tokyo/README.txt",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/Documents/Customer/国民生活センター（NCAC）/README.txt",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/Downloads/Temp_OneCloud-Media-Uploader.ps1",
+		"/C/Program Files/VMware/VMware OVF Tool/temp_uploader.ps1",
+		"/C/Users/tmurata/VMware, Inc/JPN_Pub1 - Documents/SE関連/原子力規制庁/20180411_メモ.txt",
+		"/C/Users/tmurata/Downloads/Windows License.txt",
+		"/C/Users/tmurata/Downloads/dl_admin@vmware.com",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/Documents/Customer/MLIT/ATT00001.txt",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/OJT2017/NSX_Util.ps1",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/OJT2017/NSX_Syslog_Del.ps1",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/OJT2017/DailyReports/dailyreport.txt",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/OJT2017/EDU/CMA/memo.txt",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/OJT2017/DailyReports/dailyreport_20171225.txt",
+		"/C/Windows/System32/drivers/etc/hosts",
+		"/C/Users/tmurata/Documents/個人コンテンツ/OJT/DailyReports/dailyreport_20171219.txt",
+		"/C/Users/tmurata/Documents/個人コンテンツ/OJT/DailyReports/dailyreport_20171225.txt",
+		"/C/Users/tmurata/Downloads/dailyreport_20171219.txt",
+		"/C/Users/tmurata/Documents/個人コンテンツ/OJT/DailyReports/dailyreport_20170724.txt",
+		"/C/Users/tmurata/Desktop/tmp.txt",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/Scripts/CloneVMs.ps1",
+		"/C/Users/tmurata/AppData/Local/VMware/CIP/csd/logs/csd_0006.log",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/Scripts/SetDnsServer.ps1",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/OJT2017/AW_WS1_Training/Prework/ESC_ipconfigall_tmurata.txt",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/OJT2017/AW_WS1_Training/Prework/AD_ipconfigall_tmurata.txt",
+		"/C/Users/tmurata/AppData/Local/Microsoft/Windows/INetCache/Content.Outlook/8KTUZDUR/murata.txt",
+		"/C/Users/tmurata/Desktop/にんい.txt",
+		"/C/Users/tmurata/AppData/Local/Temp/2/ESC_ipconfigall_kasair.txt",
+		"/C/Users/tmurata/AppData/Local/Temp/2/ipconfig_kbaba.txt",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/OJT2017/AW_WS1_Training/ESC_ipconfigall_tmurata.txt",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/OJT2017/AW_WS1_Training/ESC_ipconfigall.txt",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/OJT2017/AW_WS1_Training/AD_ipconfigall.txt",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/OJT2017/DailyReports/dailyreport_20170919.txt",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/OJT2017/DailyReports/Feedback",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/OJT2017/DailyReports/dailyreport_20170907.txt",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/OJT2017/DailyReports/dailyreport_20170904.txt",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/OJT2017/DailyReports/dailyreport_20170901.txt",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/OJT2017/DailyReports/dailyreport_20170831.txt",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/Downloads/vCenter + ESXi License list.txt",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/OJT2017/DailyReports/dailyreport_20170830.txt",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/OJT2017/DailyReports/dailyreport_20170829.txt",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/OJT2017/DailyReports/dailyreport_20170828.txt",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/OJT2017/DailyReports/dailyreport_20170825.txt",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/OJT2017/DailyReports/dailyreport_20170824.txt",
+		"/C/Users/tmurata/Downloads/vsan_vrli_log",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/OJT2017/DailyReports/dailyreport_20170823.txt",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/Downloads/Windows License.txt",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/OJT2017/DailyReports/dailyreport_20170822.txt",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/OJT2017/DailyReports/dailyreport_20170821.txt",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/OJT2017/DailyReports/dailyreport_20170818.txt",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/OJT2017/DailyReports/dailyreport_20170817.txt",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/OJT2017/DailyReports/dailyreport_20170815.txt",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/OJT2017/DailyReports/dailyreport_20170814.txt",
+		"/C/Users/tmurata/Downloads/desty322/DESTROY.TXT",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/OJT2017/DailyReports/NSX_PSC_Review.txt",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/OJT2017/DailyReports/dailyreport_20170810.txt",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/Downloads/media_informations",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/OJT2017/DailyReports/dailyreport_20170809.txt",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/OJT2017/Term1_PSE/Minutes/KEL_MTG_TEMP.txt",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/OJT2017/DailyReports/dailyreport_20170808.txt",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/OJT2017/DailyReports/dailyreport_20170807.txt",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/OJT2017/DailyReports/dailyreport_20170804.txt",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/OJT2017/DailyReports/dailyreport_20170803.txt",
+		"/C/Users/tmurata/hash",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/OJT2017/DailyReports/dailyreport_20170802.txt",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/OJT2017/DailyReports/dailyreport_20170801.txt",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/OJT2017/DailyReports/dailyreport_20170731.txt",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/OJT2017/DailyReports/dailyreport_20170728.txt",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/OJT2017/DailyReports/dailyreport_20170727.txt",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/OJT2017/DailyReports/dailyreport_20170726.txt",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/OJT2017/DailyReports/dailyreport_20170725.txt",
+		"/C/Users/tmurata/Documents/個人コンテンツ/OJT/DailyReports/dailyreport_20170721.txt",
+		"/C/Users/tmurata/Documents/個人コンテンツ/OJT/DailyReports/Gen-Todays-DR.ps1",
+		"/C/Users/tmurata/Documents/個人コンテンツ/OJT/DailyReports/dailyreport_20170720.txt",
+		"/C/Users/tmurata/Documents/個人コンテンツ/OJT/DailyReports/dailyreport_20170719.txt",
+		"/C/Users/tmurata/Documents/個人コンテンツ/OJT/DailyReports/dailyreport_20170718.txt",
+		"/C/Users/tmurata/holidays.txt",
+		"/C/Users/tmurata/Documents/個人コンテンツ/OJT/DailyReports/genTodaysDR.py",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/OJT2017/Term1_PSE/presen/CommentsOnCTCNSXHandsOn",
+		"/C/Users/tmurata/Documents/個人コンテンツ/OJT/DailyReports/dailyreport_20170714.txt",
+		"/C/Users/tmurata/Documents/個人コンテンツ/OJT/DailyReports/dailyreport_20170713.txt",
+		"/C/Users/tmurata/Documents/個人コンテンツ/OJT/Scripts/ping2timecsv.ps1",
+		"/C/Users/tmurata/Documents/個人コンテンツ/OJT/DailyReports/dailyreport_20170712.txt",
+		"/C/Users/tmurata/Documents/個人コンテンツ/OJT/DailyReports/dailyreport_20170711.txt",
+		"/C/Users/tmurata/Documents/個人コンテンツ/OJT/DailyReports/dailyreport_20170710.txt",
+		"/C/Users/tmurata/Documents/個人コンテンツ/OJT/DailyReports/dailyreport_20170707.txt",
+		"/C/Users/tmurata/Documents/個人コンテンツ/OJT/DailyReports/dailyreport_20170706.txt",
+		"/C/Users/tmurata/Documents/個人コンテンツ/OJT/DailyReports/dailyreport_20170703.txt",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/OJT2017/DailyReports/dailyreport_20170705.txt",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/OJT2017/DailyReports/dailyreport_20170704.txt",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/OJT2017/DailyReports/Gen-Todays-DR.ps1",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/OJT2017/DailyReports/dailyreport_template.txt",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/OJT2017/DailyReports/dailyreport_20170703.txt",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/OJT2017/DailyReport/20170619.txt",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/OJT2017/DailyReport/20170619",
+		"/C/Users/tmurata/OneDrive - VMware, Inc/NCG17/JobExp/170609_impre.txt"
+	],
+	"find":
+	{
+		"height": 29.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/C/Users/tmurata/Documents/powershell-scripts/.gitignore",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"auto_name": "",
+							"syntax": "Packages/Git Formats/Git Ignore.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 29.0
+	},
+	"input":
+	{
+		"height": 42.4
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "sample-scripts.sublime-project",
+	"replace":
+	{
+		"height": 54.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 223.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
