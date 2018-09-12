@@ -156,12 +156,14 @@ def sddc_config():
 def delete_latest_sddc_intent(sid):
     global g_id_state_manager
 
-    sddc_name = g_id_state_manager[sid].sddc_config["name"]
+    sddc_name = g_id_state_manager[sid].sddc_config['name']
 
     sddcs = g_id_state_manager[sid].vmc_util.list_sddc()
     sddc_ready = True
+    sddc_id = None
     for sddc in sddcs:
         if sddc.name == sddc_name:
+            sddc_id = sddc.id
             if sddc.sddc_state != 'READY':
                 sddc_ready = False
                 break
@@ -169,7 +171,8 @@ def delete_latest_sddc_intent(sid):
     speech_output = ""
 
     if sddc_ready:
-        g_id_state_manager[sid].vmc_util.delete_latest_sddc()
+        # g_id_state_manager[sid].vmc_util.delete_latest_sddc()
+        g_id_state_manager[sid].vmc_util.delete_sddc_id(sddc_id)
         speech_output = f"SDDC {sddc_name} の削除が正常に終了しました。"
     else:
         speech_output = f"SDDC {sddc_name} は READY ではありません。削除できませんでした。"
